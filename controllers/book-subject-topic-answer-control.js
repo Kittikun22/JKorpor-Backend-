@@ -17,7 +17,7 @@ const getTopicNoAnswer = (req, res) => {
     const topic_no = req.body.topic_no
 
 
-    db.query("SELECT subjects.subject_name,topics.topic_name, book_subject_topic_answers.answer_no, book_subject_topic_answers.answer_url FROM book_subject_topic_answers INNER JOIN books ON books.book_id = book_subject_topic_answers.book_id INNER JOIN subjects ON subjects.subject_id = book_subject_topic_answers.subject_id INNER JOIN topics ON topics.topic_id = book_subject_topic_answers.topic_id INNER JOIN book_types ON book_types.book_type_id = books.book_type_id  WHERE book_types.book_type_name = ? AND books.book_name = ? AND books.year = ? AND books.edition = ? AND subjects.subject_id = ? AND topics.topic_no = ?",
+    db.query("SELECT book_color.book_color_code, subjects.subject_name,topics.topic_name, book_subject_topic_answers.answer_no, book_subject_topic_answers.answer_url FROM book_subject_topic_answers INNER JOIN books ON books.book_id = book_subject_topic_answers.book_id INNER JOIN book_color ON books.book_color_id = book_color.book_color_id INNER JOIN subjects ON subjects.subject_id = book_subject_topic_answers.subject_id INNER JOIN topics ON topics.topic_id = book_subject_topic_answers.topic_id INNER JOIN book_types ON book_types.book_type_id = books.book_type_id  WHERE book_types.book_type_name = ? AND books.book_name = ? AND books.year = ? AND books.edition = ? AND subjects.subject_id = ? AND topics.topic_no = ?",
         [book_type, book_name, year, edition, subject_id, topic_no],
         (err, result) => {
             if (err) {
